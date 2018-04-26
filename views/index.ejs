@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <% include partials/head.ejs %>
+
+</head>
+<body class="">
+<% include partials/header.ejs %>
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1 id="typography">Super Meme Generator</h1>
+
+                    <!--<form class="needs-validation" name="meme-maker" novalidate="" action="/meme-maker"-->
+                    <!--enctype="multipart/form-data" method="post" novalidate>-->
+                    <form id="memeSubmit">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="topText">Top Text</label>
+                                <input type="text" class="form-control" id="topText" name="topText" placeholder=""
+                                       value=""
+                                       required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="bottomText">Bottom Text</label>
+                                <input type="text" class="form-control" id="bottomText" name="bottomText"
+                                       placeholder="Bottom Text">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="memeFile" name="memeFile">
+                                    <label class="custom-file-label" for="customFile" id="memeLabel" name="memeLabel">Choose
+                                        file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <h5>Optional settings</h5>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="font">Font</label>
+                                <select class="custom-select" id="font">
+                                    <option selected>Select Font</option>
+                                    <option value="1">Helvetica</option>
+                                    <option value="2">Times Roman</option>
+                                    <option value="3">Arial</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="fontSize">Font Size</label>
+                                <input type="text" class="form-control" id="fontSize" placeholder="36">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="fontFill">Font Fill</label>
+                                <input type="text" class="form-control" id="fontFill" placeholder="#FFF">
+                            </div>
+
+                        </div>
+                        <button class="btn btn-primary" type="submit">Create Meme
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>
+<% include partials/footer.ejs %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type="file"]').change(function (e) {
+            var fileName = e.target.files[0].name;
+            var infoArea = document.getElementById('memeLabel');
+            // alert('The file "' + fileName +  '" has been selected.');
+            infoArea.textContent = fileName;
+        });
+    });
+
+    $("#memeSubmit").submit(function (event) {
+        event.preventDefault();
+
+        let formData = new FormData();
+        formData.append('memeFile', $("#memeFile")[0].files[0]);
+        formData.append('topText', $('#topText').val());
+        formData.append('bottomText', $('#bottomText').val())
+        formData.append('outfile', 'meme-' + $("#memeFile")[0].files[0].filename)
+
+        createMeme(formData);
+
+        // $.ajax({
+        //     url: '/meme-maker',
+        //     data: formData,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     method: 'POST',
+        //     type: 'POST', // For jQuery < 1.9
+        //     success: function (data) {
+        //         // alert(data);
+        //         $("#result").empty().append(data);
+        //         $('#memeSubmit').each(function () {
+        //             this.reset();
+        //         });
+        //     }
+        // });
+    });
+
+</script>
+<script type="text/javascript" src="javascripts/meme-gen.js"></script>
+
+</body>
+</html>

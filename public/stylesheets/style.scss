@@ -1,0 +1,37 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "bootswatch";
+
+html {
+  height: 100%;
+}
+
+body {
+  padding-top: 120px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+  min-height: 1200px;
+}
+
+// CANVAS Styling
+#canvas {
+  width: 100%;
+}
+
+// FOOTER Styling
+
+footer {
+  color: #fff
+}
+
+footer.navbar ul li{
+  display:inline-block !important;
+}
+
+.custom-select{
+  background: white !important;
+}
